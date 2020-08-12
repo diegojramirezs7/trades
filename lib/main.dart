@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:country_provider/country_provider.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  //build method returns widget that specifies what to display
   @override
   Widget build(BuildContext context) {
     final appBarTitle = Text(
@@ -15,14 +15,34 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Color.fromRGBO(230, 230, 230, 1.0),
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {},
+            color: Colors.black,
+          ),
           title: Center(
             child: appBarTitle,
           ),
+          actions: [
+            FlatButton(
+              onPressed: () {},
+              textColor: Colors.black,
+              padding: const EdgeInsets.all(0.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(7),
+              ),
+              child: Container(
+                child:
+                const Text('Save', style: TextStyle(fontSize: 20, fontFamily: "Open Sans")),
+              ),
+            ),
+          ],
           backgroundColor: Color.fromRGBO(230, 230, 230, 1.0),
         ),
         body: Column(
           children: [
             headerSection,
+            //this widget contains textFields, dropdown and button.
             EditProfileForm(),
           ],
         ),
@@ -65,9 +85,12 @@ class _EditProfileFormState extends State<EditProfileForm> {
   String _firstNameField = "";
   String _lastNameField = "";
 
+  //CountryFilter filter = CountryFilter();
+  List<Country> countries;
+
   String _dropdownValue = "Canada";
 
-  bool _buttonActive(){
+  bool _buttonActive() {
     return _dropdownValue == "Canada";
   }
 
@@ -132,37 +155,67 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
-  Widget _buildCountryDropDown() {
+  void getCountries() async {
+    countries = await CountryProvider.getAllCountries();
+  }
+
+  Container _buildDropdownContainer() {
+    //getCountries();
     return Container(
       decoration: _formFieldDecoration(),
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-      child: Center(
-        child: DropdownButton<String>(
-          value: _dropdownValue,
-          icon: Icon(Icons.arrow_drop_down),
-          iconSize: 16,
-          underline: Container(
-            height: 2,
-            color: Colors.white,
+      child: Row(
+        children: [
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
+                child: Text(
+                  "Country",
+                  style: _textFieldStyle,
+                ),
+              ),
+            ],
           ),
-          onChanged: (String newValue) {
-            setState(() {
-              _dropdownValue = newValue;
-            });
-          },
-          items: <String>['Canada', 'USA', 'England']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  child: Center(
+                    child: DropdownButton<String>(
+                      value: _dropdownValue,
+                      icon: Icon(Icons.arrow_drop_down),
+                      iconSize: 16,
+
+                      underline: Container(
+                        height: 2,
+                        color: Colors.white,
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          _dropdownValue = newValue;
+                        });
+                      },
+                      items: <String>['Canada', 'USA', 'England']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value, style: TextStyle(fontSize: 16),),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(0),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void buttonPressed(){
+  void buttonPressed() {
     print("hello");
   }
 
@@ -181,7 +234,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
         child: Container(
           padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
           child:
-              const Text('Change Password ?', style: TextStyle(fontSize: 20)),
+              const Text('Change Password ?', style: TextStyle(fontSize: 20, fontFamily: "Open Sans")),
         ),
       ),
     );
@@ -195,7 +248,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
         children: [
           _buildTextFieldContainer("First Name", "post_man_tradepro_jun_10"),
           _buildTextFieldContainer("Last Name", "post_man_test_last_name_jun_10"),
-          _buildCountryDropDown(),
+          _buildTextFieldContainer("Email", "youremail@example.com"),
+          _buildDropdownContainer(),
           _buildChangePasswordButton(),
         ],
       ),
