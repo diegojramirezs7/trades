@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:country_provider/country_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -85,9 +84,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
   String _firstNameField = "";
   String _lastNameField = "";
 
-  //CountryFilter filter = CountryFilter();
-  List<Country> countries;
-
   String _dropdownValue = "Canada";
 
   bool _buttonActive() {
@@ -155,12 +151,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
-  void getCountries() async {
-    countries = await CountryProvider.getAllCountries();
-  }
-
   Container _buildDropdownContainer() {
-    //getCountries();
     return Container(
       decoration: _formFieldDecoration(),
       child: Row(
