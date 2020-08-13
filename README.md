@@ -1,4 +1,4 @@
-## Tradepros Flutter Sample
+## Tradespecifix Flutter Sample
 
 - To run this project, Flutter needs needs to be installed on the machine and have some available devices to run the application. 
 - A virtual device can be used with Android studio.
