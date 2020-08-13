@@ -207,7 +207,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
   }
 
   void buttonPressed() {
-    print("hello");
+    print("Button Pressed");
   }
 
   Container _buildChangePasswordButton() {
@@ -235,7 +235,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
   Widget build(BuildContext context) {
     return Form(
       child: Column(
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildTextFieldContainer("First Name", "post_man_tradepro_jun_10"),
           _buildTextFieldContainer("Last Name", "post_man_test_last_name_jun_10"),

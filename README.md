@@ -1,16 +1,33 @@
-# trades
+## Tradepros Flutter Sample
 
-A new Flutter application.
+- To run this project, Flutter needs needs to be installed on the machine and have some available devices to run the application. 
+- A virtual device can be used with Android studio.
 
-## Getting Started
+## Running
 
-This project is a starting point for a Flutter application.
+Get the code by running command: 
+```shell
+git clone https://github.com/diegojramirezs7/trades.git
+```
+or by downloading the zip and unpacking it. 
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Inside the trades folder created, run command:
+```shell
+flutter run
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+or 
+```shell
+flutter run -d <device name>
+```
+
+- The app can also run on Chrome by enabling web.
+```shell
+ flutter channel beta
+ flutter upgrade
+ flutter config --enable-web
+
+ flutter run -d Chrome
+```
+
