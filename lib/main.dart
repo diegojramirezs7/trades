@@ -13,6 +13,8 @@ class MyApp extends StatelessWidget {
       title: 'TradePros',
       home: Scaffold(
         backgroundColor: Color.fromRGBO(230, 230, 230, 1.0),
+        // app bar wit title, back button and save button
+        // buttons don't do anything yet.
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -50,6 +52,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// displays subheader "Account Settings", wrapped in other Widgets for better structure
 Widget headerSection = Container(
   padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
   child: Row(
@@ -75,6 +78,8 @@ Widget headerSection = Container(
   ),
 );
 
+
+//stateful component that has dropdown, text fields and change password button
 class EditProfileForm extends StatefulWidget {
   @override
   _EditProfileFormState createState() => _EditProfileFormState();
@@ -90,20 +95,13 @@ class _EditProfileFormState extends State<EditProfileForm> {
     return _dropdownValue == "Canada";
   }
 
-  // final myController = TextEditingController();
-
-//  @override
-//  void dispose() {
-//    // Clean up the controller when the widget is disposed.
-//    myController.dispose();
-//    super.dispose();
-//  }
-
+  //predefined style for text fields
   final _textFieldStyle = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 16,
   );
 
+  //predefined decoration for whole row in the form
   BoxDecoration _formFieldDecoration() {
     return BoxDecoration(
       border: Border.all(
@@ -114,11 +112,14 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
+  //text field builder, takes label and hint text as args.
+  //any field can use this builder method to get a uniform look on all text fields
   Container _buildTextFieldContainer(String label, String hintTextArg) {
     return Container(
       decoration: _formFieldDecoration(),
       child: Row(
         children: [
+          // column wrapping the text field label
           Column(
             children: [
               Container(
@@ -130,6 +131,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
               ),
             ],
           ),
+          // Text field wrapped by expanded and column to have it take the rest of the row
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -139,7 +141,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: hintTextArg),
                     textAlign: TextAlign.right,
-                    //controller: myController,
                   ),
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 ),
@@ -151,11 +152,13 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
+  //builds dropdown list
   Container _buildDropdownContainer() {
     return Container(
       decoration: _formFieldDecoration(),
       child: Row(
         children: [
+          //label indicating what to select
           Column(
             children: [
               Container(
@@ -167,6 +170,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
               ),
             ],
           ),
+          //actual dropdown wrapped in other Widgets for a more structured layout
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -174,19 +178,21 @@ class _EditProfileFormState extends State<EditProfileForm> {
                 Container(
                   child: Center(
                     child: DropdownButton<String>(
+                      //initial value set to Canada
                       value: _dropdownValue,
                       icon: Icon(Icons.arrow_drop_down),
                       iconSize: 16,
-
                       underline: Container(
                         height: 2,
                         color: Colors.white,
                       ),
+                      //update dropdown value
                       onChanged: (String newValue) {
                         setState(() {
                           _dropdownValue = newValue;
                         });
                       },
+                      //list of Country strings, mapped to DropDownMenuItem
                       items: <String>['Canada', 'USA', 'England']
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
@@ -206,11 +212,14 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
+  // called when Change password button is pressed, can be modified to something more meaningful
   void buttonPressed() {
     print("Button Pressed");
   }
 
+  //builder method returns change password button
   Container _buildChangePasswordButton() {
+    //button is enabled only when Canada is selected in dropdown list
     return Container(
       margin: EdgeInsets.only(top: 16),
       child: FlatButton(
@@ -231,6 +240,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
+  //Form build method calls other builder methods to create text fields, dropdown and button
   @override
   Widget build(BuildContext context) {
     return Form(

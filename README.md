@@ -31,3 +31,8 @@ flutter run -d <device name>
  flutter run -d Chrome
 ```
 
+## Notes
+I couldn't test the iOS version since I couldn't install XCode and all the related tools on my computer. 
+After spending more than a day trying to free up storage space to get Xcode and trying differerent ways of installing it, I decided to only test the code on the Android simulator, my Android phone and on Chrome. 
+To install XCode, I'll need to spend a little more time cleaning up my computer to have the sufficient storage space. 
+
